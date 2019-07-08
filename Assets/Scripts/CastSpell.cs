@@ -17,19 +17,18 @@ public class CastSpell : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            var instProjectile = Instantiate(Projectile, transform.position, Quaternion.identity) as GameObject;
-            var instProjectileRigidBody = instProjectile.GetComponent<Rigidbody>();
-            Event currentEvent = Event.current;
             var mousePos = new Vector2();
+            var aspect = _cam.pixelWidth / _cam.pixelHeight;
+            mousePos.x =  (Input.mousePosition.x / _cam.pixelWidth - 0.5f) * aspect;
+            mousePos.y = (Input.mousePosition.y / _cam.pixelHeight - 0.5f) / aspect;
 
-            mousePos.x = currentEvent.mousePosition.x;
-            mousePos.y = _cam.pixelHeight - currentEvent.mousePosition.y;
-            var point = _cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, _cam.nearClipPlane));
-
-            var direction = point - transform.position;
+            var direction = new Vector3(mousePos.x, 0, mousePos.y);
             direction.Normalize();
 
-            instProjectileRigidBody.AddForce(direction * Speed);
+            var instProjectile = Instantiate(Projectile, transform.position, Quaternion.identity) as GameObject;
+            var instProjectileRigidBody = instProjectile.GetComponent<Rigidbody>();
+
+            instProjectileRigidBody.velocity = direction * Speed;
         }
     }
 }
