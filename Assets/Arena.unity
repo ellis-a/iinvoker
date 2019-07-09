@@ -120,8 +120,6 @@ GameObject:
   - component: {fileID: 278806483}
   - component: {fileID: 278806482}
   - component: {fileID: 278806486}
-  - component: {fileID: 278806488}
-  - component: {fileID: 278806487}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -169,7 +167,7 @@ SphereCollider:
   m_GameObject: {fileID: 278806481}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -189,7 +187,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1199868033}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -204,31 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc03abf617cdd98408e0f178a028a6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 0
---- !u!114 &278806487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 278806481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de279b0da6c8b20469c77956cedd406e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Projectile: {fileID: 1373017097}
-  Speed: 100
---- !u!114 &278806488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 278806481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd5df7a83c2ac694abc5ff7de6a08f62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  MovementSpeed: 5
 --- !u!1 &604743257
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,30 +351,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1373017097
+--- !u!1 &1199868032
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1373017101}
-  - component: {fileID: 1373017100}
-  - component: {fileID: 1373017099}
-  - component: {fileID: 1373017098}
+  - component: {fileID: 1199868033}
+  - component: {fileID: 1199868036}
+  - component: {fileID: 1199868035}
+  - component: {fileID: 1199868034}
+  - component: {fileID: 1199868037}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Wand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &1373017098
+--- !u!4 &1199868033
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1199868032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.62}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.7}
+  m_Children:
+  - {fileID: 1717940387}
+  m_Father: {fileID: 278806485}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1199868034
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1373017097}
+  m_GameObject: {fileID: 1199868032}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -407,7 +397,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c29812eef5261474fac63858f96d464f, type: 2}
+  - {fileID: 2100000, guid: 223fc2eb38364734e9c99ea1b3e0ffff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -426,37 +416,67 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &1373017099
-SphereCollider:
+--- !u!65 &1199868035
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1373017097}
+  m_GameObject: {fileID: 1199868032}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1373017100
+--- !u!33 &1199868036
 MeshFilter:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1373017097}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1373017101
+  m_GameObject: {fileID: 1199868032}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1199868037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1199868032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87906331cedda944b4b3a93e119c6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FiringPoint: {fileID: 1717940387}
+  ProjectilePrefab: {fileID: 1730051293976658, guid: f137d34d39f2c6c4b87ff171e15f1f49,
+    type: 2}
+  ProjectileSpeed: 15
+--- !u!1 &1717940386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1717940387}
+  m_Layer: 0
+  m_Name: FiringPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1717940387
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1373017097}
+  m_GameObject: {fileID: 1717940386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24521923, y: -1.0246, z: 0.48161554}
+  m_LocalPosition: {x: -0.4, y: -0.37, z: 0.662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1199868033}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736288220
 GameObject:
@@ -559,6 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80561f845d08c3b4e9c26d366237e737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 278806485}
-  xOffset: 0
-  zOffset: -5
+  Target: {fileID: 278806485}
+  TargetOffset: {x: 0, y: 8, z: -5}
+  Speed: 5

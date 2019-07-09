@@ -2,13 +2,20 @@
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform Player;
-    public float xOffset = 0f;
-    public float zOffset = 0f;
+    [SerializeField]
+    public Transform Target;
+    [SerializeField]
+    public Vector3 TargetOffset;
+    [SerializeField]
+    public float Speed;
 
     void Update()
     {
-        transform.position = new Vector3(Player.position.x + xOffset, 
-            transform.position.y, Player.position.z + zOffset);
+        MoveCamera();
+    }
+
+    void MoveCamera()
+    {
+        transform.position = Vector3.Lerp(transform.position, Target.position + TargetOffset, Speed * Time.deltaTime);
     }
 }
