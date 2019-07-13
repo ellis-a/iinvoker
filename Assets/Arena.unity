@@ -204,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 5
+  ElementLoadout: 000000000100000004000000
+  InvokedElements: 
 --- !u!1 &604743257
 GameObject:
   m_ObjectHideFlags: 0
