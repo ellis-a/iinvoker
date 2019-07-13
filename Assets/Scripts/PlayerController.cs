@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     public float MovementSpeed;
-
+    private Plane GroundPlane = new Plane(Vector3.up, 0);
     void Start()
     {
 
@@ -26,11 +26,11 @@ public class PlayerController : MonoBehaviour
     void HandleRotationInput()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        float distance;
+        if (GroundPlane.Raycast(ray, out distance))
         {
-            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            var hit = ray.GetPoint(distance);
+            transform.LookAt(new Vector3(hit.x, transform.position.y, hit.z));
         }
     }
 
