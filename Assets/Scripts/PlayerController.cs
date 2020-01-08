@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovementSpeed();
         HandleRotationInput();
-        HandleShootInput();
+        HandleAttackInput();
+        HandleAlternateAttackInput();
         HandleInvokeInputs();
     }
 
@@ -45,11 +46,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void HandleShootInput()
+    void HandleAttackInput()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Attack"))
         {
-            PlayerWand.Instance.Shoot();
+            PlayerWeapon.Instance.Attack();
+        }
+    }
+
+    void HandleAlternateAttackInput()
+    {
+        if (Input.GetButton("AltAttack"))
+        {
+            PlayerWeapon.Instance.AlternateAttack();
         }
     }
 
