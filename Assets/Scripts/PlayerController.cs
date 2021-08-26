@@ -1,38 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private float _gcd;
+    private float _movementSpeed;
+    private float _maxHealth;
+    private float _currentHealth;
+
+    [Header("Attributes")]
     [SerializeField]
-    public float MovementSpeed;
+    public int Power = 10;
+    [SerializeField]
+    public int Alacrity = 10;
+    [SerializeField]
+    public int Focus = 10;
+    [SerializeField]
+    public int Will = 10;
 
-    public List<MagicElement> ElementLoadout;
-    public List<MagicElement> InvokedElements;
-    private bool isInvoke1Input = false;
-    private bool isInvoke2Input = false;
-    private bool isInvoke3Input = false;
-
-    public int MaxInvokedElements = 2;
+    [Header("Equipment")]
+    public Wand Wand;
+    public SpellBook SpellBook;
 
     private Plane GroundPlane = new Plane(Vector3.up, 0);
+
     void Start()
     {
+        _movementSpeed = 5f;
+        _maxHealth = 100f;
 
+        switch (Wand.Wood)
+        {
+            case Wand.WandWood.Birch:
+                _movementSpeed += 1f;
+                _maxHealth -= 20;
+                break;
+            case Wand.WandWood.Maple:
+                _movementSpeed += 0.5f;
+                _maxHealth -= 10;
+                break;
+            case Wand.WandWood.RedOak:
+                break;
+            case Wand.WandWood.Cedar:
+                _movementSpeed -= 0.5f;
+                _maxHealth += 10;
+                break;
+            case Wand.WandWood.Walnut:
+                _movementSpeed -= 1f;
+                _maxHealth += 20;
+                break;
+            default:
+                break;
+        }
+        
+        _currentHealth = _maxHealth;
     }
 
     void Update()
     {
-        HandleMovementSpeed();
+        HandleMovement();
         HandleRotationInput();
-        HandleAttackInput();
-        HandleAlternateAttackInput();
-        HandleInvokeInputs();
+        HandleSpellCasts();
     }
 
-    void HandleMovementSpeed()
+    void HandleMovement()
     {
-        transform.Translate(MovementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0f,
-            MovementSpeed * Input.GetAxis("Vertical") * Time.deltaTime, Space.World);
+        transform.Translate(_movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0f,
+            _movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime, Space.World);
     }
 
     void HandleRotationInput()
@@ -46,50 +81,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void HandleAttackInput()
+    public void HandleSpellCasts()
     {
-        if (Input.GetButton("Attack"))
+        foreach (var spell in SpellBook.GetSpells())
         {
-            PlayerWeapon.Instance.Attack();
-        }
-    }
-
-    void HandleAlternateAttackInput()
-    {
-        if (Input.GetButton("AltAttack"))
-        {
-            PlayerWeapon.Instance.AlternateAttack();
-        }
-    }
-
-    void HandleInvokeInputs()
-    {
-        HandleSingleInvokeInput("Invoke1", 0, ref isInvoke1Input);
-        HandleSingleInvokeInput("Invoke2", 1, ref isInvoke2Input);
-        HandleSingleInvokeInput("Invoke3", 2, ref isInvoke3Input);
-    }
-
-    void HandleSingleInvokeInput(string buttonName, int loadoutIndex, ref bool isInputPressed)
-    {
-        if (Input.GetButton(buttonName))
-        {
-            if (!isInputPressed)
+            if (spell == null)
             {
-                isInputPressed = true;
-                if (ElementLoadout.Count > loadoutIndex)
-                {
-                    InvokedElements.Insert(0, ElementLoadout[loadoutIndex]);
-
-                    if (InvokedElements.Count > MaxInvokedElements)
-                    {
-                        InvokedElements.RemoveAt(InvokedElements.Count - 1);
-                    }
-                }
+                continue;
             }
-        }
-        else
-        {
-            isInputPressed = false;
+
+            var gcdComplete = Time.time > _gcd;
+            if (gcdComplete && (Input.GetButtonDown(spell.Hotkey)
+                || Input.GetButton(spell.Hotkey) && (spell.Hotkey == "Attack" || spell.Hotkey == "AltAttack")))
+            {
+                if (!SpellBook.IsManaAvailable(spell)) //manacost
+                {
+                    continue;
+                }
+
+                _gcd = Time.time + 0.5f;
+                SpellBook.SpendMana(spell);
+                spell.SetAttributes(Power, Alacrity, Focus, Will);
+                spell.CastSpell();
+            }
         }
     }
 }
