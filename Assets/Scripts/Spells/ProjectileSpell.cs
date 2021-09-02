@@ -20,12 +20,12 @@ public class ProjectileSpell : Spell
         Launch(ProjectileSpeed, ProjectileRange, Damage);
     }
 
-    public void Launch(float speed, float range, int damage)
+    public void Launch(float speed, float range, float damage)
     {
         Launch(speed, range, damage, 0f);
     }
 
-    public void Launch(float speed, float range, int damage, float angle)
+    public void Launch(float speed, float range, float damage, float angle)
     {
         var rotation = CastPoint.rotation * Quaternion.Euler(0, angle, 0);
         var projectile = Instantiate(ProjectilePrefab, CastPoint.position, rotation).GetComponent<Projectile>();
