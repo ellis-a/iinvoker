@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d374ad4ef9e02b4ca0a8221919766bc, type: 3}
-  m_Name: FireArrow
+  m_Name: SparkleBolt
   m_EditorClassIdentifier: 
-  AbilityName: Fire Arrow
+  AbilityName: Sparkle Bolt
   Sound: {fileID: 0}
-  Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  Damage: 5
-  ManaCost: R
-  Hotkey: Attack
+  Sprite: {fileID: 0}
+  Damage: 3
+  ManaCost: W
+  Hotkey: AltAttack
   CastPoint: {fileID: 0}
-  ProjectilePrefab: {fileID: 54611722023229368, guid: 2e7664c20147fcb41b92dc57d6270f7b,
+  ProjectilePrefab: {fileID: 445915194317432332, guid: f9af4c77abd033a4281f36b782e13371,
     type: 3}
-  ProjectileSpeed: 10
-  ProjectileRange: 10
+  ProjectileSpeed: 7
+  ProjectileRange: 20

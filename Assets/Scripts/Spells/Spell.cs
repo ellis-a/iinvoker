@@ -11,6 +11,17 @@ public abstract class Spell : ScriptableObject
     private int _colourlessManaCost = -1;
     private int _genericManaCost = -1;
 
+    protected void OnValidate()
+    {
+        _whiteManaCost = -1;
+        _blueManaCost = -1;
+        _blackManaCost = -1;
+        _redManaCost = -1;
+        _greenManaCost = -1;
+        _colourlessManaCost = -1;
+        _genericManaCost = -1;
+    }
+
     [SerializeField]
     public string AbilityName;
     [SerializeField]
@@ -112,7 +123,7 @@ public abstract class Spell : ScriptableObject
     public Transform CastPoint;
 
     public static Spell Instance;
-
+    
     public abstract void Initialize(GameObject obj);
     public abstract void CastSpell();
 
