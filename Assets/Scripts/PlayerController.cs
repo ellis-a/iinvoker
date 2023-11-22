@@ -48,6 +48,7 @@ public class PlayerController : NetworkBehaviour
         HandleSpellCasts();
     }
 
+    [Client(RequireOwnership = true)]
     private void HandleMovement()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -60,6 +61,7 @@ public class PlayerController : NetworkBehaviour
         //    _movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime, Space.World);
     }
 
+    [Client(RequireOwnership = true)]
     private void HandleRotationInput()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
