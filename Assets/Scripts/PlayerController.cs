@@ -1,13 +1,16 @@
-﻿using System;
+﻿using FishNet.Object;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     private float _gcd;
     private float _movementSpeed;
     private float _maxHealth;
     private float _currentHealth;
+
+    private CharacterController _characterController;
 
     [Header("Attributes")]
     [SerializeField]
@@ -25,52 +28,39 @@ public class PlayerController : MonoBehaviour
 
     private Plane GroundPlane = new Plane(Vector3.up, 0);
 
-    void Start()
+    private void Awake()
+    {
+        _characterController = GetComponent<CharacterController>();
+    }
+
+    private void Start()
     {
         _movementSpeed = 5f;
         _maxHealth = 100f;
-
-        switch (Wand.Wood)
-        {
-            case Wand.WandWood.Birch:
-                _movementSpeed += 1f;
-                _maxHealth -= 20;
-                break;
-            case Wand.WandWood.Maple:
-                _movementSpeed += 0.5f;
-                _maxHealth -= 10;
-                break;
-            case Wand.WandWood.RedOak:
-                break;
-            case Wand.WandWood.Cedar:
-                _movementSpeed -= 0.5f;
-                _maxHealth += 10;
-                break;
-            case Wand.WandWood.Walnut:
-                _movementSpeed -= 1f;
-                _maxHealth += 20;
-                break;
-            default:
-                break;
-        }
         
         _currentHealth = _maxHealth;
     }
 
-    void Update()
+    private void Update()
     {
         HandleMovement();
         HandleRotationInput();
         HandleSpellCasts();
     }
 
-    void HandleMovement()
+    private void HandleMovement()
     {
-        transform.Translate(_movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0f,
-            _movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime, Space.World);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 offset = new Vector3(horizontal, Physics.gravity.y, vertical) * (_movementSpeed * Time.deltaTime);
+
+        _characterController.Move(offset);
+
+        //transform.Translate(_movementSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0f,
+        //    _movementSpeed * Input.GetAxis("Vertical") * Time.deltaTime, Space.World);
     }
 
-    void HandleRotationInput()
+    private void HandleRotationInput()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float distance;
@@ -83,27 +73,27 @@ public class PlayerController : MonoBehaviour
 
     public void HandleSpellCasts()
     {
-        foreach (var spell in SpellBook.GetSpells())
-        {
-            if (spell == null)
-            {
-                continue;
-            }
+        //foreach (var spell in SpellBook.GetSpells())
+        //{
+        //    if (spell == null)
+        //    {
+        //        continue;
+        //    }
 
-            var gcdComplete = Time.time > _gcd;
-            if (gcdComplete && (Input.GetButtonDown(spell.Hotkey)
-                || Input.GetButton(spell.Hotkey) && (spell.Hotkey == "Attack" || spell.Hotkey == "AltAttack")))
-            {
-                if (!SpellBook.IsManaAvailable(spell)) //manacost
-                {
-                    continue;
-                }
+        //    var gcdComplete = Time.time > _gcd;
+        //    if (gcdComplete && (Input.GetButtonDown(spell.Hotkey)
+        //        || Input.GetButton(spell.Hotkey) && (spell.Hotkey == "Attack" || spell.Hotkey == "AltAttack")))
+        //    {
+        //        if (!SpellBook.IsManaAvailable(spell)) //manacost
+        //        {
+        //            continue;
+        //        }
 
-                _gcd = Time.time + 0.5f;
-                SpellBook.SpendMana(spell);
-                spell.SetAttributes(Power, Alacrity, Focus, Will);
-                spell.CastSpell();
-            }
-        }
+        //        _gcd = Time.time + 0.5f;
+        //        SpellBook.SpendMana(spell);
+        //        spell.SetAttributes(Power, Alacrity, Focus, Will);
+        //        spell.CastSpell();
+        //    }
+        //}
     }
 }

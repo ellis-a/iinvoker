@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wand : MonoBehaviour
+public class Wand : MonoBehaviour, IWand
 {
     [SerializeField]
     public GameObject WandModel;
