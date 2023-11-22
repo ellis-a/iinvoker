@@ -27,6 +27,7 @@ public class CameraController : NetworkBehaviour
     {
         MoveCamera();
     }
+
     void MoveCamera()
     {
         transform.position = Vector3.Lerp(transform.position, Target.position + TargetOffset, Speed * Time.deltaTime);
