@@ -202,6 +202,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 369172798346771897}
   - {fileID: 6558070391147435774}
+  - {fileID: 2261825405028400288}
   <ParentNetworkObject>k__BackingField: {fileID: 2430064127463603963}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -215,7 +216,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 486616979
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 0
 --- !u!114 &6558070391147435774
@@ -336,7 +337,6 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 6728111237061185872}
-  - {fileID: 2261825405028400288}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 7655750982561183973}
@@ -352,7 +352,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 486616979
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 9108699489103310431
 --- !u!1 &2081885066504728196
@@ -424,7 +424,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -497,7 +497,7 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 486616979
+  _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 0
 --- !u!1 &2356994439563020206
@@ -734,9 +734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a2a50484591284897414e3c1ecc3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 2430064127463603963}
-  _networkObjectCache: {fileID: 2430064127463603963}
+  _networkObjectCache: {fileID: 3550467360636143706}
   _text: {fileID: 1354228689416944903}
 --- !u!1 &8336452010323837169
 GameObject:
