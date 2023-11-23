@@ -12,14 +12,15 @@ public class PlayerController : NetworkBehaviour
 
     private CharacterController _characterController;
 
+    [Header("Components")]
+    public Camera PlayerCamera;
+    public GameObject PlayerCharacter;
+    public GameObject Rotator;
+
     [Header("Attributes")]
-    [SerializeField]
     public int Power = 10;
-    [SerializeField]
     public int Alacrity = 10;
-    [SerializeField]
     public int Focus = 10;
-    [SerializeField]
     public int Will = 10;
 
     [Header("Equipment")]
@@ -41,7 +42,7 @@ public class PlayerController : NetworkBehaviour
         _currentHealth = _maxHealth;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         HandleMovement();
         HandleRotationInput();
@@ -53,7 +54,7 @@ public class PlayerController : NetworkBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 offset = new Vector3(horizontal, Physics.gravity.y, vertical) * (_movementSpeed * Time.deltaTime);
+        Vector3 offset = Rotator.transform.rotation * new Vector3(horizontal, Physics.gravity.y, vertical) * (_movementSpeed * Time.deltaTime);
 
         _characterController.Move(offset);
 
@@ -64,12 +65,17 @@ public class PlayerController : NetworkBehaviour
     [Client(RequireOwnership = true)]
     private void HandleRotationInput()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Input.GetButton("CameraRotation"))
+        {
+            return;
+        }
+
+        var ray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
         float distance;
         if (GroundPlane.Raycast(ray, out distance))
         {
             var hit = ray.GetPoint(distance);
-            transform.LookAt(new Vector3(hit.x, transform.position.y, hit.z));
+            PlayerCharacter.transform.LookAt(new Vector3(hit.x, PlayerCharacter.transform.position.y, hit.z));
         }
     }
 

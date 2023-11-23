@@ -11,11 +11,8 @@ GameObject:
   - component: {fileID: 8625906537238693247}
   - component: {fileID: 4308648937344651625}
   - component: {fileID: 45411563277800965}
-  - component: {fileID: 7052297483914158073}
-  - component: {fileID: 6994744177624829596}
   - component: {fileID: 369172798346771897}
   - component: {fileID: 3550467360636143706}
-  - component: {fileID: 6558070391147435774}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -90,55 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7052297483914158073
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469080031827289524}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &6994744177624829596
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469080031827289524}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &369172798346771897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +149,6 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 369172798346771897}
-  - {fileID: 6558070391147435774}
   - {fileID: 2261825405028400288}
   <ParentNetworkObject>k__BackingField: {fileID: 2430064127463603963}
   <ChildNetworkObjects>k__BackingField: []
@@ -219,27 +166,6 @@ MonoBehaviour:
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 0
---- !u!114 &6558070391147435774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469080031827289524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc03abf617cdd98408e0f178a028a6f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 3550467360636143706}
-  _networkObjectCache: {fileID: 3550467360636143706}
-  Power: 10
-  Alacrity: 10
-  Focus: 10
-  Will: 10
-  Wand: {fileID: 0}
-  SpellBook: {fileID: 0}
 --- !u!1 &1774801531543280000
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +177,9 @@ GameObject:
   - component: {fileID: 5504901617613399954}
   - component: {fileID: 6728111237061185872}
   - component: {fileID: 2430064127463603963}
+  - component: {fileID: 939508315634750620}
+  - component: {fileID: 5940617228944843154}
+  - component: {fileID: 6842833262761432174}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -267,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 1774801531543280000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -337,12 +266,13 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 6728111237061185872}
+  - {fileID: 6842833262761432174}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 3550467360636143706}
   - {fileID: 7655750982561183973}
   SerializedTransformProperties:
-    Position: {x: 0, y: 1, z: 0}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -350,11 +280,84 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 9108699489103310431
+--- !u!143 &939508315634750620
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774801531543280000}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &5940617228944843154
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774801531543280000}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &6842833262761432174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774801531543280000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc03abf617cdd98408e0f178a028a6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 2430064127463603963}
+  _networkObjectCache: {fileID: 2430064127463603963}
+  PlayerCamera: {fileID: 2287985633369490429}
+  PlayerCharacter: {fileID: 469080031827289524}
+  Rotator: {fileID: 3327814888558164710}
+  Power: 10
+  Alacrity: 10
+  Focus: 10
+  Will: 10
+  Wand: {fileID: 0}
+  SpellBook: {fileID: 0}
 --- !u!1 &2081885066504728196
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,9 +469,9 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 7655750982561183973}
   Target: {fileID: 8625906537238693247}
   YOffset: 8
-  XZOffset: 4
+  ZOffset: -4
   FollowSpeed: 5
-  RotateSpeed: 500
+  RotateSpeed: 100
   Rotator: {fileID: 3327814888558164710}
 --- !u!114 &7655750982561183973
 MonoBehaviour:
@@ -769,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70a2a50484591284897414e3c1ecc3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 2430064127463603963}
   _networkObjectCache: {fileID: 3550467360636143706}
   _text: {fileID: 1354228689416944903}

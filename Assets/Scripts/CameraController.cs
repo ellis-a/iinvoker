@@ -12,7 +12,7 @@ public class CameraController : NetworkBehaviour
     [SerializeField]
     public float YOffset;
     [SerializeField]
-    public float XZOffset;
+    public float ZOffset;
     [SerializeField]
     public float FollowSpeed;
     [SerializeField]
@@ -36,7 +36,7 @@ public class CameraController : NetworkBehaviour
     void Update()
     {
         RotateCamera();
-        MoveCamera();
+        //MoveCamera();
     }
 
     private void RotateCamera()
@@ -54,12 +54,12 @@ public class CameraController : NetworkBehaviour
         //mouse moving left
         if (Input.mousePosition.x < _prevMouseLocation.x)
         {
-            Rotator.transform.Rotate(0, RotateSpeed * Time.deltaTime, 0);
+            Rotator.transform.Rotate(0, (_prevMouseLocation.x - Input.mousePosition.x) * RotateSpeed * Time.deltaTime, 0);
         }
         //mouse moving right
         if (Input.mousePosition.x > _prevMouseLocation.x)
         {
-            Rotator.transform.Rotate(0, RotateSpeed * Time.deltaTime * -1, 0);
+            Rotator.transform.Rotate(0, (Input.mousePosition.x - _prevMouseLocation.x) * RotateSpeed * Time.deltaTime * -1, 0);
         }
 
         Mouse.current.WarpCursorPosition(_prevMouseLocation);
@@ -67,10 +67,7 @@ public class CameraController : NetworkBehaviour
 
     void MoveCamera()
     {
-        var xOffset = XZOffset;
-        var zOffset = XZOffset;
-
-        var nextPosition = Target.transform.position + new Vector3(xOffset, YOffset, zOffset);
+        var nextPosition = Target.transform.position + new Vector3(0, YOffset, ZOffset);
         
         transform.position = Vector3.Lerp(transform.position, nextPosition, FollowSpeed * Time.deltaTime);
     }
