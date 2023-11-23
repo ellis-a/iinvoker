@@ -281,8 +281,11 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 0}
   Target: {fileID: 1434083735175067841}
-  TargetOffset: {x: 0, y: 8, z: -5}
-  Speed: 5
+  YOffset: 0
+  XZOffset: 0
+  FollowSpeed: 0
+  RotateSpeed: 0
+  Rotator: {fileID: 0}
 --- !u!1 &4961774495474159586
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,6 @@ public class LookAtCamera : MonoBehaviour
         if (_camera == null) { _camera = Camera.main; }
         if (_camera == null) { return; }
 
-        transform.LookAt(_camera.transform);
+        transform.LookAt(_camera.transform, _camera.transform.up);
     }
 }

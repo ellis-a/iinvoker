@@ -1,19 +1,29 @@
 ﻿using FishNet.Object;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraController : NetworkBehaviour
 {
+    private Vector3 _prevMouseLocation;
+
     [SerializeField]
     public Transform Target;
     [SerializeField]
-    public Vector3 TargetOffset;
+    public float YOffset;
     [SerializeField]
-    public float Speed;
+    public float XZOffset;
+    [SerializeField]
+    public float FollowSpeed;
+    [SerializeField]
+    public float RotateSpeed;
+    [SerializeField]
+    public GameObject Rotator;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        EnableCamera();    
+        EnableCamera();
     }
 
     [Client(RequireOwnership = true)]
@@ -25,11 +35,43 @@ public class CameraController : NetworkBehaviour
 
     void Update()
     {
+        RotateCamera();
         MoveCamera();
+    }
+
+    private void RotateCamera()
+    {
+        if (!Input.GetButton("CameraRotation"))
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("CameraRotation"))
+        {
+            _prevMouseLocation = Input.mousePosition;
+        }
+
+        //mouse moving left
+        if (Input.mousePosition.x < _prevMouseLocation.x)
+        {
+            Rotator.transform.Rotate(0, RotateSpeed * Time.deltaTime, 0);
+        }
+        //mouse moving right
+        if (Input.mousePosition.x > _prevMouseLocation.x)
+        {
+            Rotator.transform.Rotate(0, RotateSpeed * Time.deltaTime * -1, 0);
+        }
+
+        Mouse.current.WarpCursorPosition(_prevMouseLocation);
     }
 
     void MoveCamera()
     {
-        transform.position = Vector3.Lerp(transform.position, Target.position + TargetOffset, Speed * Time.deltaTime);
+        var xOffset = XZOffset;
+        var zOffset = XZOffset;
+
+        var nextPosition = Target.transform.position + new Vector3(xOffset, YOffset, zOffset);
+        
+        transform.position = Vector3.Lerp(transform.position, nextPosition, FollowSpeed * Time.deltaTime);
     }
 }
