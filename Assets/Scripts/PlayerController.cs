@@ -12,25 +12,19 @@ public class PlayerController : NetworkBehaviour
 
     private CharacterController _characterController;
 
+    private Hero _characterWizard;
+    private SpellBook _spellBook;
+    private Plane GroundPlane = new Plane(Vector3.up, 0);
+
     [Header("Components")]
     public Camera PlayerCamera;
     public GameObject PlayerCharacter;
     public GameObject Rotator;
 
-    [Header("Attributes")]
-    public int Power = 10;
-    public int Alacrity = 10;
-    public int Focus = 10;
-    public int Will = 10;
-
-    [Header("Equipment")]
-    public Wand Wand;
-    public SpellBook SpellBook;
-
-    private Plane GroundPlane = new Plane(Vector3.up, 0);
-
     private void Awake()
     {
+        _characterWizard = GetComponent<Hero>();
+        _spellBook = new SpellBook();
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -48,7 +42,7 @@ public class PlayerController : NetworkBehaviour
         HandleRotationInput();
         HandleSpellCasts();
     }
-
+    
     [Client(RequireOwnership = true)]
     private void HandleMovement()
     {
@@ -81,27 +75,27 @@ public class PlayerController : NetworkBehaviour
 
     public void HandleSpellCasts()
     {
-        //foreach (var spell in SpellBook.GetSpells())
-        //{
-        //    if (spell == null)
-        //    {
-        //        continue;
-        //    }
+        foreach (var spell in _spellBook.GetSpells())
+        {
+            if (spell == null)
+            {
+                continue;
+            }
 
-        //    var gcdComplete = Time.time > _gcd;
-        //    if (gcdComplete && (Input.GetButtonDown(spell.Hotkey)
-        //        || Input.GetButton(spell.Hotkey) && (spell.Hotkey == "Attack" || spell.Hotkey == "AltAttack")))
-        //    {
-        //        if (!SpellBook.IsManaAvailable(spell)) //manacost
-        //        {
-        //            continue;
-        //        }
+            var gcdComplete = Time.time > _gcd;
+            if (gcdComplete && (Input.GetButtonDown(spell.Hotkey)
+                || Input.GetButton(spell.Hotkey) && (spell.Hotkey == "Attack" || spell.Hotkey == "AltAttack")))
+            {
+                if (!_spellBook.IsManaAvailable(spell)) //manacost
+                {
+                    continue;
+                }
 
-        //        _gcd = Time.time + 0.5f;
-        //        SpellBook.SpendMana(spell);
-        //        spell.SetAttributes(Power, Alacrity, Focus, Will);
-        //        spell.CastSpell();
-        //    }
-        //}
+                _gcd = Time.time + 0.5f;
+                _spellBook.SpendMana(spell);
+                //spell.SetAttributes(Power, Alacrity, Focus, Will);
+                spell.CastSpell();
+            }
+        }
     }
 }

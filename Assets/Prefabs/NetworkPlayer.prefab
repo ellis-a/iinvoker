@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c29812eef5261474fac63858f96d464f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 939508315634750620}
   - component: {fileID: 5940617228944843154}
   - component: {fileID: 6842833262761432174}
+  - component: {fileID: 5728679890069823420}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -352,12 +353,26 @@ MonoBehaviour:
   PlayerCamera: {fileID: 2287985633369490429}
   PlayerCharacter: {fileID: 469080031827289524}
   Rotator: {fileID: 3327814888558164710}
+--- !u!114 &5728679890069823420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774801531543280000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2188413757af046bdb22f53325af54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  MaxHealth: 0
+  CurrentHealth: 0
   Power: 10
   Alacrity: 10
   Focus: 10
   Will: 10
-  Wand: {fileID: 0}
-  SpellBook: {fileID: 0}
+  Charm: 0
 --- !u!1 &2081885066504728196
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +549,7 @@ Transform:
   m_GameObject: {fileID: 2356994439563020206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.076}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -568,7 +583,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 223fc2eb38364734e9c99ea1b3e0ffff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

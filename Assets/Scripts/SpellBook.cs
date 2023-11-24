@@ -53,77 +53,11 @@ public class SpellBook : MonoBehaviour
 
     public void SpendMana(Spell spellBeingCast)
     {
-        var w = spellBeingCast.WhiteManaCost;
-        var u = spellBeingCast.BlueManaCost;
-        var b = spellBeingCast.BlackManaCost;
-        var r = spellBeingCast.RedManaCost;
-        var g = spellBeingCast.GreenManaCost;
-        var c = spellBeingCast.GenericManaCost;
 
-        var manaToSpend = new List<ManaRune>();
-
-        foreach (var rune in Runes)
-        {
-            if (!rune.Available)
-            {
-                continue;
-            }
-
-            if (rune.Colour == RuneColour.White && w > 0) //improve this
-            {
-                w--;
-                manaToSpend.Add(rune);
-            }
-            else if (rune.Colour == RuneColour.Blue && u > 0)
-            {
-                u--;
-                manaToSpend.Add(rune);
-            }
-            else if (rune.Colour == RuneColour.Black && b > 0)
-            {
-                b--;
-                manaToSpend.Add(rune);
-            }
-            else if (rune.Colour == RuneColour.Red && r > 0)
-            {
-                r--;
-                manaToSpend.Add(rune);
-            }
-            else if (rune.Colour == RuneColour.Green && g > 0)
-            {
-                g--;
-                manaToSpend.Add(rune);
-            }
-        }
-
-        var allManaSpent = w == 0 && u == 0 && b == 0 && r == 0 && g == 0;
-        if (allManaSpent)
-        {
-            foreach (var rune in manaToSpend)
-            {
-                rune.ConsumeMana();
-            }
-        }
     }
 
     public bool IsManaAvailable(Spell spellBeingCast)
     {
-        var mana = Runes.ToList();
-        var w = mana.Count(m => m.Colour == RuneColour.White && m.Available);
-        var u = mana.Count(m => m.Colour == RuneColour.Blue && m.Available);
-        var b = mana.Count(m => m.Colour == RuneColour.Black && m.Available);
-        var r = mana.Count(m => m.Colour == RuneColour.Red && m.Available);
-        var g = mana.Count(m => m.Colour == RuneColour.Green && m.Available);
-
-        if (spellBeingCast.WhiteManaCost > w ||
-            spellBeingCast.BlueManaCost > u ||
-            spellBeingCast.BlackManaCost > b ||
-            spellBeingCast.RedManaCost > r ||
-            spellBeingCast.GreenManaCost > g)
-        {
-            return false;
-        }
-
         return true;
     } 
 
@@ -165,12 +99,13 @@ public class SpellBook : MonoBehaviour
         {
             SpaceSpell.Hotkey = "SpaceSpell";
         }
+
         _spells = new List<Spell>() { LClickSpell, RClickSpell, QSpell, ESpell, RSpell, FSpell, SpaceSpell };
 
         foreach (var spell in _spells)
         {
             if (spell == null) { continue; }
-            spell.CastPoint = CastPoint.transform;
+            //spell.CastPoint = CastPoint.transform;
         }
     }
 }
